@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { InviteSchema } from "../models/invite";
 
 export const inviteSubject = z.tuple([
     z.union([
@@ -7,7 +8,7 @@ export const inviteSubject = z.tuple([
         z.literal('create'),
         z.literal('delete')
     ]),
-        z.literal('Invite')
+        z.union([z.literal('Invite'), InviteSchema])
 ]);
 
 export type InviteSubject = z.infer<typeof inviteSubject>;

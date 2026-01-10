@@ -8,14 +8,15 @@ type PermissionsByRole = (
     builder:AbilityBuilder<AppAbility>
 )=>void;
 export const permissions: Record<Role, PermissionsByRole> ={
-    ADMIN:(_, builder)=>{
+    ADMIN:(user, builder)=>{
         builder.can('manage', 'all');
     },
-    MEMBER:(_, builder)=>{
+    MEMBER:(user, builder)=>{
         // builder.can('invite', 'User');
-        builder.can('create', 'Project');
+        builder.can(['create', 'get'], 'Project');
+        builder.can(['update', 'delete'], 'Project', {ownerId: { $eq: user.id }});
     },
-    BILLING:(_, builder)=>{
+    BILLING:(user, builder)=>{
         builder.can('get', 'Project');
     }
 }
