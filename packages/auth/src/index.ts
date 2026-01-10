@@ -9,7 +9,11 @@ import { billingSubject } from './subjects/billing';
 import { userSubject } from './subjects/user';
 import type { User } from './models/user';
 
-// type AppAbilities = UserSubject | ProjectSubject | ['manage', 'all'];
+export * from './models/user'
+export * from './models/project'
+export * from './models/organization'
+export * from './models/invite'
+export * from './models/billing'
 
 const appAbilitiesSchema = z.union([
     projectSubject,
