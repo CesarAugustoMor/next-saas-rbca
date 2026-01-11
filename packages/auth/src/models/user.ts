@@ -4,7 +4,7 @@ import { RoleSubject} from "../roles";
 
 export const UserSchema = z.object({
     __typename: z.literal('User').default('User'),
-    id: z.uuid(),
+    id: z.string(),
     role: RoleSubject
 });
 
