@@ -7,6 +7,8 @@ import z from "zod";
 export async function createAccount(app:FastifyInstance) {
     app.withTypeProvider<ZodTypeProvider>().post('/user', {
         schema: {
+            tags: ["Auth"],
+            summary: "Create a new user account",
             body: z.object({
                 name: z.string().min(3),
                 email: z.email(),
