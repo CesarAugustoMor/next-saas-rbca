@@ -43,7 +43,7 @@ model Organization {
   name      String
   slug      String   @unique
   domain    String?  @unique
-  shouldAttachUserByDomain Boolean  @default(false) @map("should_attach_user_by_domain")
+  shouldAttachUsersByDomain Boolean  @default(false) @map("should_attach_users_by_domain")
   avatarUrl String?  @map("avatar_url")
 
   owner     User     @relation(fields: [ownerId], references: [id])

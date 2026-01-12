@@ -7,8 +7,7 @@
   "scripts": {
     "dev": "tsx watch src/http/server.ts",
     "lint": "eslint . --ext .ts,.tsx",
-    "lint:fix": "eslint . --ext .ts,.tsx --fix",
-    "postinstall": "prisma generate"
+    "lint:fix": "eslint . --ext .ts,.tsx --fix"
   },
   "dependencies": {
     "@fastify/cors": "^11.2.0",
@@ -22,6 +21,7 @@
     "zod": "^4.3.5"
   },
   "devDependencies": {
+    "@faker-js/faker": "^10.2.0",
     "@saas/eslint-config": "*",
     "@saas/prettier": "*",
     "@saas/tsconfig": "*",
@@ -30,10 +30,13 @@
     "prisma": "^7.2.0",
     "tsx": "^4.21.0"
   },
+  "prettier": "@saas/prettier",
   "eslintConfig": {
     "extends": [
       "@saas/eslint-config/node-js"
     ]
   },
-  "prettier": "@saas/prettier"
+  "Prisma": {
+    "seed": "tsx prisma/seed.ts"
+  }
 }
