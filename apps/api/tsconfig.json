@@ -1,4 +1,17 @@
 {
   "extends": "@saas/tsconfig/node.json",
-  "include": ["src/**/*", "../../packages/auth/src/permissions.ts"]
+  "include": ["src/**/*", "../../packages/auth/src/permissions.ts"],
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*"]
+    },
+    "rootDir": "src",
+    "module": "ESNext",
+    "moduleResolution": "node",
+    "target": "ES2023",
+    "strict": true,
+    "esModuleInterop": true,
+    "ignoreDeprecations": "6.0"
+  }
 }
