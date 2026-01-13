@@ -12,8 +12,16 @@ export async function authenticateWithPassword(app: FastifyInstance) {
             body: z.object({
                 email: z.email(),
                 password: z.string().min(6),
-            })
-        }
+            }),
+            response: {
+                201: z.object({
+                    token: z.string(),
+                }),
+                400: z.object({
+                    error: z.string(),
+                }),
+            },
+        },
     },
     async (request, reply) => {
         const { email, password } = request.body;
@@ -45,6 +53,6 @@ export async function authenticateWithPassword(app: FastifyInstance) {
             }
         });
 
-        return reply.status(200).send({ token });
+        return reply.status(201).send({ token });
     });
 }
