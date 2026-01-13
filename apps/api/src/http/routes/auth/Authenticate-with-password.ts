@@ -3,6 +3,7 @@ import { compare } from "bcryptjs";
 import type { FastifyInstance } from "fastify";
 import type { ZodTypeProvider } from "fastify-type-provider-zod";
 import z from "zod";
+import { BadRequestError } from "../_erros/bad-request-error";
 
 export async function authenticateWithPassword(app: FastifyInstance) {
     app.withTypeProvider<ZodTypeProvider>().post('/sessions/password', {
@@ -17,9 +18,6 @@ export async function authenticateWithPassword(app: FastifyInstance) {
                 201: z.object({
                     token: z.string(),
                 }),
-                400: z.object({
-                    error: z.string(),
-                }),
             },
         },
     },
@@ -31,17 +29,17 @@ export async function authenticateWithPassword(app: FastifyInstance) {
         });
 
         if (!userFromEmail) {
-            return reply.status(400).send({ error: "Invalid credentials." });
+            throw new BadRequestError("Invalid credentials.");
         }
 
         if (userFromEmail.passwordHash == null) {
-            return reply.status(400).send({ error: "User does not have a password, use social login." });
+            throw new BadRequestError("User does not have a password, use social login.");
         }
 
         const isPasswordValid = await compare(password, userFromEmail.passwordHash);
 
         if (!isPasswordValid) {
-            return reply.status(400).send({ error: "Invalid credentials." });
+            throw new BadRequestError("Invalid credentials.");
         }
 
         const token = await reply.jwtSign({
