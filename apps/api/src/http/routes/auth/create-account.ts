@@ -31,7 +31,7 @@ export async function createAccount(app:FastifyInstance) {
             where: { domain, shouldAttachUsersByDomain: true }
         });
 
-        const hashedPassword =  await hash(password, 6); // numero varia de acordo com o nivel de seguranca (performance)
+        const hashedPassword =  await hash(password, 6); // número varia de acordo com o nivel de segurança (performance)
 
         await prisma.user.create({
             data: {
