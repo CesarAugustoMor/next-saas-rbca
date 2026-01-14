@@ -1,11 +1,18 @@
 {
-  "extends": "@saas/tsconfig/base.json",
+  "extends": "@saas/tsconfig/node.json",
   "compilerOptions": {
-    "noEmit": false,
-    "rootDir": "src",
     "outDir": "dist",
     "declaration": true,
-    "declarationMap": false
+    "declarationMap": false,
+    "emitDeclarationOnly": false,
+    "module": "ESNext",
+    "target": "ES2022",
+    "moduleResolution": "Node",
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "strict": true
   },
   "include": ["src/**/*"]
 }
