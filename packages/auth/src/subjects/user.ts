@@ -1,12 +1,17 @@
 import { z } from "zod";
-import { UserSchema } from "../models/user";
+import { userSchema } from "../models/user";
 
 export const userSubject = z.tuple([
-    z.union([z.literal('manage'),
+    z.union([
+        z.literal('manage'),
         z.literal('get'),
         z.literal('update'),
-        z.literal('delete')]),
-    z.union([z.literal('User'), UserSchema])
+        z.literal('delete'),
+    ]),
+    z.union([
+        z.literal('User'),
+         userSchema
+        ]),
 ]);
 
-export type UserSubject = z.infer<typeof userSubject>;
+export type UserSubject = z.infer<typeof userSubject>

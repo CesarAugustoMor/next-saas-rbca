@@ -1,10 +1,11 @@
 import "dotenv/config";
 import { faker } from '@faker-js/faker'
+import { PrismaClient } from '../src/generated/prisma/client'
 import { hash } from 'bcryptjs'
 import { PrismaPg } from '@prisma/adapter-pg'
-import { PrismaClient } from '../src/generated/prisma/client'
+import { env } from "@saas/env";
 
-const connectionString = `${process.env.DATABASE_URL}`
+const connectionString = env.DATABASE_URL
 
 const adapter = new PrismaPg({ connectionString })
 const prisma = new PrismaClient({ adapter })

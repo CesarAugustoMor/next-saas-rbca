@@ -1,20 +1,19 @@
 {
-  "name": "next-saas-rbca",
+  "name": "next-saas-rbac",
   "private": true,
   "scripts": {
-    "build": "turbo run build",
-    "dev": "turbo run dev",
-    "lint": "turbo run lint",
-    "check-types": "turbo run check-types"
+    "build": "turbo build",
+    "dev": "turbo dev",
+    "lint": "turbo lint",
+    "check-types": "turbo check-types"
   },
   "devDependencies": {
-    "turbo": "^2.7.3",
-    "typescript": "5.9.2"
+    "turbo": "latest"
   },
+  "packageManager": "yarn@1.22.22",
   "engines": {
     "node": ">=18"
   },
-  "packageManager": "yarn@1.22.22",
   "workspaces": [
     "apps/*",
     "packages/*",

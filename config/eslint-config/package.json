@@ -3,10 +3,15 @@
   "version": "0.0.0",
   "type": "module",
   "private": true,
+  "files": [
+    "library.js",
+    "next.js",
+    "node.cjs"
+  ],
   "exports": {
     "./library": "./library.js",
     "./next-js": "./next.js",
-    "./node-js": "./node.js"
+    "./node-js": "./node.cjs"
   },
   "devDependencies": {
     "@rocketseat/eslint-config": "^2.2.2",
@@ -15,6 +20,6 @@
   },
   "prettier": "@saas/prettier",
   "eslintConfig": {
-    "extends":["./library.js"]
+    "extends": ["./library.js"]
   }
 }

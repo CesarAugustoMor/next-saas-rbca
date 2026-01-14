@@ -1,12 +1,14 @@
-import type { FastifyInstance } from "fastify";
-import type { ZodTypeProvider } from "fastify-type-provider-zod";
-import {z} from "zod";
-import { BadRequestError } from "../_erros/bad-request-error";
-import { prisma } from "@/lib/prisma";
-import { env } from "@saas/env";
+import { env } from "@saas/env"
+import type { FastifyInstance } from "fastify"
+import type { ZodTypeProvider } from "fastify-type-provider-zod"
+import {z} from "zod"
+import { BadRequestError } from "@/http/routes/_errors/bad-request-error"
+import { prisma } from "@/lib/prisma"
 
 export async function authenticateWithGithub(app: FastifyInstance) {
-    app.withTypeProvider<ZodTypeProvider>().post('/sessions/github', {
+    app.withTypeProvider<ZodTypeProvider>().post(
+        '/sessions/github',
+        {
         schema: {
             tags: ["auth"],
             summary: "Authenticate with GitHub",
@@ -21,61 +23,79 @@ export async function authenticateWithGithub(app: FastifyInstance) {
         },
     },
     async (request, reply) => {
-        const { code } = request.body;
+        const { code } = request.body
 
-        const githubOAuthUrl = new URL('https://github.com/login/oauth/access_token',
+        const githubOAuthURL = new URL(
+            'https://github.com/login/oauth/access_token',
             );
-        githubOAuthUrl.searchParams.append('client_id', env.GITHUB_OAUTH_CLIENT_ID);
-        githubOAuthUrl.searchParams.append('client_secret', env.GITHUB_OAUTH_CLIENT_SECRET);
-        githubOAuthUrl.searchParams.append('redirect_uri', env.GITHUB_OAUTH_CLIENT_REDIRECT_URI);
-        githubOAuthUrl.searchParams.append('code', code);
+        githubOAuthURL.searchParams.set('client_id', env.GITHUB_OAUTH_CLIENT_ID);
+        githubOAuthURL.searchParams.set(
+            'client_secret',
+             env.GITHUB_OAUTH_CLIENT_SECRET,
+            )
+        githubOAuthURL.searchParams.set(
+            'redirect_uri',
+            env.GITHUB_OAUTH_CLIENT_REDIRECT_URI,
+        )
+        githubOAuthURL.searchParams.set('code', code)
 
-        const accessTokenResponse = await fetch(githubOAuthUrl, {
+        const githubAccessTokenResponse = await fetch(githubOAuthURL, {
             method: 'POST',
             headers: {
-                'Accept': 'application/json',
+                Accept: 'application/json',
             },
         });
 
-        const githubAccessTokenData = await accessTokenResponse.json();
+        const githubAccessTokenData = await githubAccessTokenResponse.json()
 
-        const {access_token:accessToken} = z.object({
+        const {access_token: githubAccessToken} = z
+        .object({
             access_token: z.string(),
             token_type: z.literal('bearer'),
             scope: z.string(),
-        }).parse(githubAccessTokenData);
+        })
+        .parse(githubAccessTokenData)
 
         const githubUserResponse = await fetch('https://api.github.com/user', {
             headers: {
-                Authorization: `Bearer ${accessToken}`,
+                Authorization: `Bearer ${githubAccessToken}`,
             },
-        });
+        })
 
-        const githubUserData = await githubUserResponse.json();
+        const githubUserData = await githubUserResponse.json()
 
-        const {id: githubId, avatar_url, name, email} = z.object({
+        const {
+            id: githubId,
+            name,
+            email,
+            avatar_url: avatarUrl,
+        } = z
+        .object({
             id: z.number().transform(String),
             avatar_url: z.url(),
             name: z.string().nullable(),
             email: z.string().nullable(),
-        }).parse(githubUserData);
+        })
+        .parse(githubUserData)
 
-        if (email=== null) {
-            throw new BadRequestError('Your GitHub account does not have an email associated. Please add an email to your GitHub account and try again.');
+        if (email === null) {
+            throw new BadRequestError(
+                'Your GitHub account does not have an email associated. Please add an email to your GitHub account and try again.'
+            )
         }
 
         let user = await prisma.user.findUnique({
-            where: {email},
-        });
+            where: { email },
+        })
 
         if (!user) {
             user = await prisma.user.create({
                 data: {
-                    name,
                     email,
-                    avatarUrl: avatar_url,
+                    name,
+                    avatarUrl,
                 },
-            });
+            })
         }
 
         let account = await prisma.account.findUnique({
@@ -85,7 +105,7 @@ export async function authenticateWithGithub(app: FastifyInstance) {
                     userId: user.id,
                 },
             },
-        });
+        })
 
         if (!account) {
             account = await prisma.account.create({
@@ -94,18 +114,21 @@ export async function authenticateWithGithub(app: FastifyInstance) {
                     providerAccountId: githubId,
                     userId: user.id,
                 },
-            });
+            })
         }
 
-        const token = await reply.jwtSign({
+        const token = await reply.jwtSign(
+            {
             sub: user.id,
         },
              {
             sign: {
-                expiresIn: "7 days",
-            }
-        });
+                expiresIn: "7d",
+            },
+        },
+    )
 
-        return reply.status(201).send({ token});
-    });
+        return reply.status(201).send({ token })
+    },
+)
 }

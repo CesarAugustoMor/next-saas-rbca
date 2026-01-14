@@ -9,7 +9,7 @@
     "rootDir": "src",
     "module": "ESNext",
     "moduleResolution": "node",
-    "target": "ES2023",
+    "target": "esnext",
     "strict": true,
     "esModuleInterop": true,
     "ignoreDeprecations": "6.0"

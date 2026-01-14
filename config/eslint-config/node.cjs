@@ -1,8 +1,11 @@
 /** @type {import('eslint').Linter.Config} */
 module.exports = {
-  extends: ['@rocketseat/eslint-config/next'],
+  extends: ['@rocketseat/eslint-config/node'],
   plugins: ['simple-import-sort'],
   rules: {
     'simple-import-sort/imports': 'error',
-  },
+    "prettier/prettier": "error",
+			"no-unused-vars": "error",
+      "no-duplicate-imports": "error"
+  }
 }

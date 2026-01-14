@@ -1,18 +1,19 @@
 import fastifyCors from "@fastify/cors";
+import fastifyJwt from "@fastify/jwt";
+import fastifySwagger from "@fastify/swagger";
+import fastifySwaggerUI from "@fastify/swagger-ui";
+import { env } from "@saas/env";
 import { fastify } from "fastify";
 import { jsonSchemaTransform, serializerCompiler, validatorCompiler, ZodTypeProvider } from "fastify-type-provider-zod";
-import { createAccount } from "./routes/auth/create-account";
-import fastifySwagger from "@fastify/swagger";
-import fastifySwaggerUi from "@fastify/swagger-ui";
-import fastifyJwt from "@fastify/jwt";
-import { getProfile } from "./routes/auth/get-profile";
-import { authenticateWithPassword } from "./routes/auth/authenticate-with-password";
 import { errorHandler } from "./error-handler";
+import { authenticateWithGithub } from "./routes/auth/authenticate-with-github";
+import { authenticateWithPassword } from "./routes/auth/authenticate-with-password";
+import { getProfile } from "./routes/auth/get-profile";
 import { requestPasswordRecover } from "./routes/auth/request-password-recover";
 import { resetPassword } from "./routes/auth/reset-password";
-import { authenticateWithGithub } from "./routes/auth/authenticate-with-github";
-import { env } from "@saas/env";
 import { createOrganization } from "./routes/orgs/create-organization";
+import { getMembership } from "./routes/orgs/get-membership";
+import { createAccount } from "./routes/auth/create-account";
 
 const app = fastify().withTypeProvider<ZodTypeProvider>();
 
@@ -24,7 +25,7 @@ app.setErrorHandler(errorHandler);
 app.register(fastifySwagger, {
   openapi: {
     info: {
-      title: 'NextJs SaaS',
+      title: 'Next.js SaaS',
       description: 'Full-stack NextJs SaaS application with authentication, payments, and more.',
       version: '1.0.0',
     },
@@ -37,29 +38,33 @@ app.register(fastifySwagger, {
         },
       },
     },
-    servers: [],
   },
   transform: jsonSchemaTransform,
-});
+})
 
-app.register(fastifySwaggerUi, {
+app.register(fastifySwaggerUI, {
   routePrefix: '/docs',
-});
+})
 
 app.register(fastifyJwt, {
   secret: env.JWT_SECRET,
-});
+})
 
 app.register(fastifyCors)
 
+// Auth
 app.register(createAccount)
 app.register(authenticateWithPassword)
 app.register(authenticateWithGithub)
 app.register(getProfile)
 app.register(requestPasswordRecover)
 app.register(resetPassword)
-app.register(createOrganization)
 
-app.listen({ port: env.SERVER_PORT }).then(() => {
-  console.log(`Server is running on http://localhost:${env.SERVER_PORT}`);
+// Organizations
+app.register(createOrganization)
+app.register(getMembership)
+
+
+app.listen({ port: env.PORT }).then(() => {
+  console.log(`Server is running on http://localhost:${env.PORT}`);
 });

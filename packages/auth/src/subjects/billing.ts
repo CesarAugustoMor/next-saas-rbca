@@ -1,5 +1,5 @@
-import { z } from "zod";
-import { BillingSchema } from "../models/billing";
+import { z } from "zod"
+import { BillingSchema } from "../models/billing"
 
 export const billingSubject = z.tuple([
     z.union([
@@ -10,4 +10,4 @@ export const billingSubject = z.tuple([
         z.union([z.literal('Billing'), BillingSchema])
 ]);
 
-export type BillingSubject = z.infer<typeof billingSubject>;
+export type BillingSubject = z.infer<typeof billingSubject>
