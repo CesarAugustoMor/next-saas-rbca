@@ -1,32 +1,41 @@
-import fastifyCors from "@fastify/cors";
-import fastifyJwt from "@fastify/jwt";
-import fastifySwagger from "@fastify/swagger";
-import fastifySwaggerUI from "@fastify/swagger-ui";
-import { env } from "@saas/env";
-import { fastify } from "fastify";
-import { jsonSchemaTransform, serializerCompiler, validatorCompiler, ZodTypeProvider } from "fastify-type-provider-zod";
-import { errorHandler } from "./error-handler";
-import { authenticateWithGithub } from "./routes/auth/authenticate-with-github";
-import { authenticateWithPassword } from "./routes/auth/authenticate-with-password";
-import { getProfile } from "./routes/auth/get-profile";
-import { requestPasswordRecover } from "./routes/auth/request-password-recover";
-import { resetPassword } from "./routes/auth/reset-password";
-import { createOrganization } from "./routes/orgs/create-organization";
-import { getMembership } from "./routes/orgs/get-membership";
-import { createAccount } from "./routes/auth/create-account";
+import fastifyCors from '@fastify/cors'
+import fastifyJwt from '@fastify/jwt'
+import fastifySwagger from '@fastify/swagger'
+import fastifySwaggerUI from '@fastify/swagger-ui'
+import { env } from '@saas/env'
+import { fastify } from 'fastify'
+import {
+  jsonSchemaTransform,
+  serializerCompiler,
+  validatorCompiler,
+  ZodTypeProvider,
+} from 'fastify-type-provider-zod'
 
-const app = fastify().withTypeProvider<ZodTypeProvider>();
+import { errorHandler } from './error-handler'
+import { authenticateWithGithub } from './routes/auth/authenticate-with-github'
+import { authenticateWithPassword } from './routes/auth/authenticate-with-password'
+import { createAccount } from './routes/auth/create-account'
+import { getProfile } from './routes/auth/get-profile'
+import { requestPasswordRecover } from './routes/auth/request-password-recover'
+import { resetPassword } from './routes/auth/reset-password'
+import { createOrganization } from './routes/orgs/create-organization'
+import { getMembership } from './routes/orgs/get-membership'
+import { getOrganization } from './routes/orgs/get-organization'
+import { getOrganizations } from './routes/orgs/get-organizations'
 
-app.setSerializerCompiler(serializerCompiler);
-app.setValidatorCompiler(validatorCompiler);
+const app = fastify().withTypeProvider<ZodTypeProvider>()
 
-app.setErrorHandler(errorHandler);
+app.setSerializerCompiler(serializerCompiler)
+app.setValidatorCompiler(validatorCompiler)
+
+app.setErrorHandler(errorHandler)
 
 app.register(fastifySwagger, {
   openapi: {
     info: {
       title: 'Next.js SaaS',
-      description: 'Full-stack NextJs SaaS application with authentication, payments, and more.',
+      description:
+        'Full-stack NextJs SaaS application with authentication, payments, and more.',
       version: '1.0.0',
     },
     components: {
@@ -63,8 +72,9 @@ app.register(resetPassword)
 // Organizations
 app.register(createOrganization)
 app.register(getMembership)
-
+app.register(getOrganization)
+app.register(getOrganizations)
 
 app.listen({ port: env.PORT }).then(() => {
-  console.log(`Server is running on http://localhost:${env.PORT}`);
-});
+  console.log(`Server is running on http://localhost:${env.PORT}`)
+})
