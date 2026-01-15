@@ -6,7 +6,6 @@ import { authMiddleware } from '@/http/middlewares/auth'
 import { prisma } from '@/lib/prisma'
 import { getUserPermissions } from '@/utils/get-user-permissions'
 
-import { BadRequestError } from '../_errors/bad-request-error'
 import { UnauthorizedError } from '../_errors/unauthorized-error'
 
 export async function getProjects(app: FastifyInstance) {
@@ -14,7 +13,7 @@ export async function getProjects(app: FastifyInstance) {
     .withTypeProvider<ZodTypeProvider>()
     .register(authMiddleware)
     .get(
-      '/organizations/:slug/projects/',
+      '/organizations/:slug/projects',
       {
         schema: {
           tags: ['Projects'],
@@ -28,20 +27,18 @@ export async function getProjects(app: FastifyInstance) {
               projects: z.array(
                 z.object({
                   id: z.uuid(),
-                  name: z.string(),
                   description: z.string(),
+                  name: z.string(),
                   slug: z.string(),
-                  ownerId: z.uuid(),
                   avatarUrl: z.url().nullable(),
                   organizationId: z.uuid(),
+                  ownerId: z.uuid(),
                   createdAt: z.date(),
-                  owner: {
-                    select: {
-                      id: z.uuid(),
-                      name: z.string().nullable(),
-                      avatarUrl: z.url().nullable(),
-                    },
-                  },
+                  owner: z.object({
+                    id: z.uuid(),
+                    name: z.string().nullable(),
+                    avatarUrl: z.url().nullable(),
+                  }),
                 }),
               ),
             }),
@@ -76,6 +73,7 @@ export async function getProjects(app: FastifyInstance) {
               select: {
                 id: true,
                 name: true,
+                email: true,
                 avatarUrl: true,
               },
             },
@@ -87,10 +85,6 @@ export async function getProjects(app: FastifyInstance) {
             createdAt: 'desc',
           },
         })
-
-        if (!projects) {
-          throw new BadRequestError('Project not found.')
-        }
 
         return reply.status(200).send({ projects })
       },

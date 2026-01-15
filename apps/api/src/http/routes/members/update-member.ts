@@ -10,7 +10,7 @@ import { getUserPermissions } from '@/utils/get-user-permissions'
 import { BadRequestError } from '../_errors/bad-request-error'
 import { UnauthorizedError } from '../_errors/unauthorized-error'
 
-export async function updateMembers(app: FastifyInstance) {
+export async function updateMember(app: FastifyInstance) {
   app
     .withTypeProvider<ZodTypeProvider>()
     .register(authMiddleware)

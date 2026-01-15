@@ -33,7 +33,9 @@ enum TokenType {
 model Token {
   id        String    @id @default(uuid())
   type      TokenType
+
   createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime @default(now()) @updatedAt @map("updated_at")
 
   user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId String @map("user_id")
