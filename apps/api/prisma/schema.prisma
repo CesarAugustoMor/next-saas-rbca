@@ -70,10 +70,10 @@ model Invite {
   email     String
   role      Role
 
-  author   User? @relation(fields: [authorId], references: [id])
+  author   User? @relation(fields: [authorId], references: [id], onDelete: SetNull)
   authorId String? @map("author_id")
 
-  organization   Organization @relation(fields: [organizationId], references: [id])
+  organization   Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
   organizationId String @map("organization_id")
 
   createdAt DateTime @default(now())
@@ -88,10 +88,10 @@ model Member {
   id        String   @id @default(uuid())
   role      Role @default(MEMBER)
 
-  organization Organization @relation(fields: [organizationId], references: [id])
+  organization Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
   organizationId String @map("organization_id")
 
-  user      User     @relation(fields: [userId], references: [id])
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId    String   @map("user_id")
 
   createdAt DateTime @default(now())
@@ -129,7 +129,7 @@ model Project {
   slug      String   @unique
   avatarUrl String?  @map("avatar_url")
 
-  organization Organization @relation(fields: [organizationId], references: [id])
+  organization Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
   organizationId String @map("organization_id")
 
   owner     User     @relation(fields: [ownerId], references: [id])
