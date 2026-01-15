@@ -15,7 +15,7 @@ export async function createInvite(app: FastifyInstance) {
     .withTypeProvider<ZodTypeProvider>()
     .register(authMiddleware)
     .post(
-      '/organizations/:slug/Invites',
+      '/organizations/:slug/invites',
       {
         schema: {
           tags: ['Invites'],
