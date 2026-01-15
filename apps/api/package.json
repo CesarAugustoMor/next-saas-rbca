@@ -8,6 +8,7 @@
     "dev": "yarn env:load tsx watch src/http/server.ts",
     "db:migrate": "yarn env:load prisma migrate dev",
     "db:studio": "yarn env:load prisma studio",
+    "db:generate": "yarn env:load prisma generate",
     "env:load": "dotenv -e ../../.env --",
     "build": "tsup",
     "start": "node dist/http/server.js",
