@@ -6,7 +6,8 @@
   "files": [
     "library.json",
     "node.json",
-    "nextjs.json"],
+    "nextjs.json"
+  ],
   "exports": {
     "./library.json": "./library.json",
     "./node.json": "./node.json",

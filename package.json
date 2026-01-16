@@ -10,7 +10,7 @@
   "devDependencies": {
     "turbo": "latest"
   },
-  "packageManager": "yarn@1.22.22",
+  "packageManager": "yarn@4.12.0",
   "engines": {
     "node": ">=18"
   },
