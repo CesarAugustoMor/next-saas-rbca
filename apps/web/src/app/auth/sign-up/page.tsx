@@ -7,9 +7,14 @@ import githubIcon from '@/assets/github-icon.svg'
 
 import Link from "next/link";
 import Image from "next/image";
-export default function SignInPage(){
+export default function SignUpPage(){
   return(
     <form action="" className="space-y-4">
+      <div className="space-y-1">
+        <Label htmlFor="name">Nome</Label>
+        <Input name="name" id="name"/>
+      </div>
+
       <div className="space-y-1">
         <Label htmlFor="email">E-mail</Label>
         <Input name="email" type="email" id="email"/>
@@ -18,23 +23,26 @@ export default function SignInPage(){
       <div className="space-y-1">
         <Label htmlFor="password">Password</Label>
         <Input name="password" type="password" id="password"/>
-
-        <Link href="/auth/forgot-password" className="text-xs font-medium text-foreground hover:underline">Forgot your password.</Link>
+      </div>
+      
+      <div className="space-y-1">
+        <Label htmlFor="password_confirmation">Confirm your password</Label>
+        <Input name="password_confirmation" type="password" id="password_confirmation"/>
       </div>
 
-      <Button type="submit" className="w-full">Sign in with e-mail.</Button>
+      <Button type="submit" className="w-full">Create account.</Button>
 
       <Button variant="link" className="w-full" size="sm" asChild>
-        <Link href="/auth/sign-up">
-        Create a new account.
+        <Link href="/auth/sign-in">
+        Already registered? Sign in.
         </Link>
       </Button>
 
       <Separator/>
-
+      
       <Button type="submit" className="w-full" variant="outline">
         <Image src={githubIcon} alt="" className="mr-2 size-4 dark:invert" />
-        Sign in with GitHub.
+        Sign up with GitHub.
       </Button>
     </form>
   )
