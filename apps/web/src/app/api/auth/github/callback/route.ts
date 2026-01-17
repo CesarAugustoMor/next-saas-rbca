@@ -3,7 +3,7 @@ import { HTTPError } from "ky";
 import { cookies } from "next/headers";
 import { NextResponse, type NextRequest } from "next/server";
 
-export async function get(request:NextRequest) {
+export async function GET(request:NextRequest) {
   const searchParams = request.nextUrl.searchParams
 
   const code = searchParams.get('code')

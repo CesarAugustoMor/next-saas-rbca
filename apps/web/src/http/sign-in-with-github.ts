@@ -10,11 +10,13 @@ interface SignInWithGithubResponse{
 
 export async function sigInWithGithub({code}:SignInWithGithubRequest) {
     
-    const result = await api.post('sessions/github',{
+    const result = await api.post('sessions/github', {
         json:{
             code
         }
     }).json<SignInWithGithubResponse>()
+    console.log(result);
+    
 
     return result
 }
