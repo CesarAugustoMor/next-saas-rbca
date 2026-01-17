@@ -2,7 +2,7 @@
 'use server'
 
 import { z } from "zod"
-
+import { cookies } from "next/headers";
 import { sigInWithPassword } from "@/http/sign-in-with-password"
 import { HTTPError } from "ky"
 
@@ -29,7 +29,11 @@ export async function  signInWithEmailAndPassword(data: FormData){
             email,
             password,
         })
-        console.log(token);
+        
+        ;(await cookies()).set('token',token, {
+          path: '/',
+          maxAge: 60 * 60 * 24 * 7 //7 days
+        })
         
     } catch (error) {
         if (error instanceof HTTPError) {
