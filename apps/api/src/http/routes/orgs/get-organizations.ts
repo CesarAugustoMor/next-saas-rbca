@@ -18,15 +18,17 @@ export async function getOrganizations(app: FastifyInstance) {
           summary: 'Get organizations where user is a member',
           security: [{ bearerAuth: [] }],
           response: {
-            200: z.array(
-              z.object({
-                id: z.uuid(),
-                name: z.string(),
-                slug: z.string(),
-                avatarUrl: z.url().nullable(),
-                role: roleSchema,
-              }),
-            ),
+            200: z.object({
+              organizations: z.array(
+                z.object({
+                  id: z.string().uuid(),
+                  name: z.string(),
+                  slug: z.string(),
+                  avatarUrl: z.string().url().nullable(),
+                  role: roleSchema,
+                }),
+              ),
+            }),
           },
         },
       },
@@ -66,7 +68,7 @@ export async function getOrganizations(app: FastifyInstance) {
           },
         )
 
-        return organizationsWithUserRole
+        return {organizations: organizationsWithUserRole}
       },
     )
 }
