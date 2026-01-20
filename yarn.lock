@@ -7681,6 +7681,7 @@ __metadata:
     "@radix-ui/react-label": "npm:^2.1.8"
     "@radix-ui/react-separator": "npm:^1.1.8"
     "@radix-ui/react-slot": "npm:^1.2.4"
+    "@saas/auth": "npm:*"
     "@saas/eslint-config": "npm:*"
     "@saas/prettier": "npm:*"
     "@saas/tsconfig": "npm:*"
