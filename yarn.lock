@@ -1978,6 +1978,43 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@saas/web@workspace:apps/web":
+  version: 0.0.0-use.local
+  resolution: "@saas/web@workspace:apps/web"
+  dependencies:
+    "@radix-ui/react-avatar": "npm:^1.1.11"
+    "@radix-ui/react-dropdown-menu": "npm:^2.1.16"
+    "@radix-ui/react-label": "npm:^2.1.8"
+    "@radix-ui/react-separator": "npm:^1.1.8"
+    "@radix-ui/react-slot": "npm:^1.2.4"
+    "@saas/auth": "npm:*"
+    "@saas/env": "npm:*"
+    "@saas/eslint-config": "npm:*"
+    "@saas/prettier": "npm:*"
+    "@saas/tsconfig": "npm:*"
+    "@tailwindcss/postcss": "npm:^4"
+    "@types/node": "npm:^20"
+    "@types/react": "npm:^19"
+    "@types/react-dom": "npm:^19"
+    babel-plugin-react-compiler: "npm:1.0.0"
+    class-variance-authority: "npm:^0.7.1"
+    clsx: "npm:^2.1.1"
+    cookies-next: "npm:^6.1.1"
+    dotenv-cli: "npm:^11.0.0"
+    ky: "npm:^1.14.2"
+    lucide-react: "npm:^0.562.0"
+    next: "npm:16.1.2"
+    next-themes: "npm:^0.4.6"
+    react: "npm:19.2.3"
+    react-dom: "npm:19.2.3"
+    tailwind-merge: "npm:^3.4.0"
+    tailwindcss: "npm:^4"
+    tw-animate-css: "npm:^1.4.0"
+    typescript: "npm:5.9.3"
+    zod: "npm:^4.3.5"
+  languageName: unknown
+  linkType: soft
+
 "@standard-schema/spec@npm:^1.0.0":
   version: 1.1.0
   resolution: "@standard-schema/spec@npm:1.1.0"
@@ -7681,41 +7718,6 @@ __metadata:
   checksum: 10c0/e6897ed2008fc900380a6ce39b62bc5fca45fd5e070f70571c6380ede3ba026d0b7016230215d87f7f3d672a28dbde5a0522d39830b493fdc3dccd1a59ef4ee6
   languageName: node
   linkType: hard
-
-"web@workspace:apps/web":
-  version: 0.0.0-use.local
-  resolution: "web@workspace:apps/web"
-  dependencies:
-    "@radix-ui/react-avatar": "npm:^1.1.11"
-    "@radix-ui/react-dropdown-menu": "npm:^2.1.16"
-    "@radix-ui/react-label": "npm:^2.1.8"
-    "@radix-ui/react-separator": "npm:^1.1.8"
-    "@radix-ui/react-slot": "npm:^1.2.4"
-    "@saas/auth": "npm:*"
-    "@saas/eslint-config": "npm:*"
-    "@saas/prettier": "npm:*"
-    "@saas/tsconfig": "npm:*"
-    "@tailwindcss/postcss": "npm:^4"
-    "@types/node": "npm:^20"
-    "@types/react": "npm:^19"
-    "@types/react-dom": "npm:^19"
-    babel-plugin-react-compiler: "npm:1.0.0"
-    class-variance-authority: "npm:^0.7.1"
-    clsx: "npm:^2.1.1"
-    cookies-next: "npm:^6.1.1"
-    ky: "npm:^1.14.2"
-    lucide-react: "npm:^0.562.0"
-    next: "npm:16.1.2"
-    next-themes: "npm:^0.4.6"
-    react: "npm:19.2.3"
-    react-dom: "npm:19.2.3"
-    tailwind-merge: "npm:^3.4.0"
-    tailwindcss: "npm:^4"
-    tw-animate-css: "npm:^1.4.0"
-    typescript: "npm:5.9.3"
-    zod: "npm:^4.3.5"
-  languageName: unknown
-  linkType: soft
 
 "which-boxed-primitive@npm:^1.1.0, which-boxed-primitive@npm:^1.1.1":
   version: 1.1.1
