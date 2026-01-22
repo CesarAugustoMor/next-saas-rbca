@@ -3,15 +3,19 @@ import { redirect } from "next/navigation";
 
 export default async function AuthLayout({
   children,
+  sheet,
 }: Readonly<{
-  children: React.ReactNode;
+  children: React.ReactNode
+  sheet: React.ReactNode
 }>) {
-  if (!await isAuthenticated()) {
+  if (!isAuthenticated()) {
     redirect('/auth/sign-in')
   }
+
   return (
     <>
       {children}
+      {sheet}
     </>
   )
 }
