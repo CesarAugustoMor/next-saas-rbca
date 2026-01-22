@@ -7,5 +7,5 @@ export default async function Home() {
       <Header />
       <main className="mx-auto w-full max-w-[1200px] space-y-4"></main>
     </div>
-  );
+  )
 }
