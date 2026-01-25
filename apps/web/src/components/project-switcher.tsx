@@ -17,7 +17,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from './ui/dropdown-menu'
-// import { Skeleton } from './ui/skeleton'
+import { Skeleton } from './ui/skeleton'
 
 export function ProjectSwitcher() {
   const { slug: orgSlug, project: projectSlug } = useParams<{
@@ -33,16 +33,16 @@ export function ProjectSwitcher() {
 
   const currentProject =
     data && projectSlug
-      ? data.projects.find((project) => project.slug === projectSlug):
-       null
+      ? data.projects.find((project) => project.slug === projectSlug)
+      : null
 
   return (
     <DropdownMenu>
       <DropdownMenuTrigger className="flex w-[168px] items-center gap-2 rounded p-1 text-sm font-medium outline-none focus-visible:ring-2 focus-visible:ring-primary">
         {isLoading ? (
           <>
-            {/* <Skeleton className="size-4 rounded-full" />
-            <Skeleton className="h-4 w-full flex-1" /> */}
+            <Skeleton className="size-4 rounded-full" />
+            <Skeleton className="h-4 w-full flex-1" />
           </>
         ) : (
           <>
