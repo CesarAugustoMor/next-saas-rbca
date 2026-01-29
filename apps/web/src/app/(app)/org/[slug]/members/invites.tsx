@@ -7,7 +7,6 @@ import { CreateInviteForm } from './create-invite-form'
 import { RevokeInviteButton } from './revoke-invite-button'
 
 export async function Invites() {
-  const currentOrg = getCurrentOrg()
   const currentOrg = await getCurrentOrg()
   const permissions = await ability()
 
@@ -21,6 +20,7 @@ export async function Invites() {
             <CardTitle>Invite member</CardTitle>
           </CardHeader>
           <CardContent>
+            <CreateInviteForm />
           </CardContent>
         </Card>
       )}
@@ -43,7 +43,7 @@ export async function Invites() {
                       {invite.role}
                     </TableCell>
                     <TableCell className="py-2.5">
-                      <div className="flex justify-end">
+                      <div className="flex justify-self-end">
                         {permissions?.can('delete', 'Invite') && (
                           <RevokeInviteButton inviteId={invite.id} />
                         )}

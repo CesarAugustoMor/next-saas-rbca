@@ -34,7 +34,7 @@ export async function MemberList() {
           <TableBody>
             {members.map((member) => {
               return (
-                <TableRow key={member.id}>
+                <TableRow className='w-full'  key={member.id}>
                   <TableCell className="py-2.5" style={{ width: 48 }}>
                     <Avatar>
                       <AvatarFallback />
@@ -67,7 +67,7 @@ export async function MemberList() {
                     </div>
                   </TableCell>
                   <TableCell className="py-2.5">
-                    <div className="flex items-center justify-end gap-2">
+                    <div className="flex items-center justify-self-end gap-2">
                       {permissions?.can(
                         'transfer_ownership',
                         authOrganization,
