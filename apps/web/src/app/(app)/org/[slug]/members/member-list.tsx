@@ -10,6 +10,8 @@ import { getMembers } from '@/http/get-members'
 import { getMembership } from '@/http/get-membership'
 import { getOrganization } from '@/http/get-organization'
 
+import { removeMemberAction } from './actions'
+
 export async function MemberList() {
   const currentOrg = await getCurrentOrg()
   const permissions = await ability()
@@ -75,6 +77,23 @@ export async function MemberList() {
                         </Button>
                       )}
 
+                      {permissions?.can('delete', 'User') && (
+                        // TODO: alert
+                        <form action={removeMemberAction.bind(null, member.id)}>
+                          <Button
+                            disabled={
+                              member.userId === membership.userId ||
+                              member.userId === organization.ownerId
+                            }
+                            type="submit"
+                            size="sm"
+                            variant="destructive"
+                          >
+                            <UserMinus className="mr-2 size-4" />
+                            Remove
+                          </Button>
+                        </form>
+                      )}
                     </div>
                   </TableCell>
                 </TableRow>
