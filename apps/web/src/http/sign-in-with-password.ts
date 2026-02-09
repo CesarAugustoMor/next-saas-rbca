@@ -9,7 +9,7 @@ interface SignInWithPasswordResponse{
     token:string
 }
 
-export async function sigInWithPassword({email, password}:SignInWithPasswordRequest) {
+export async function signInWithPassword({email, password}:SignInWithPasswordRequest) {
     
     const result = await api.post('sessions/password',{
         json:{
