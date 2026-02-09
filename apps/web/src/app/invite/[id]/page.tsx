@@ -98,6 +98,34 @@ export default async function InvitePage({ params }: InvitePageProps) {
           </form>
         )}
 
+        {isUserAuthenticated && !userIsAuthenticatedWithSameEmailFromInvite && (
+          <div className="space-y-4">
+            <p className="text-balance text-center text-sm leading-relaxed text-muted-foreground">
+              This invite was sent to{' '}
+              <span className="font-medium text-foreground">
+                {invite.email}
+              </span>{' '}
+              but you are currently authenticated as{' '}
+              <span className="font-medium text-foreground">
+                {currentUserEmail}
+              </span>
+              .
+            </p>
+
+            <div className="space-y-2">
+              <Button className="w-full" variant="secondary" asChild>
+                <a href="/api/auth/sign-out">
+                  <LogOut className="mr-2 size-4" />
+                  Sign out from {currentUserEmail}
+                </a>
+              </Button>
+
+              <Button className="w-full" variant="outline" asChild>
+                <Link href="/">Back to dashboard</Link>
+              </Button>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   )
