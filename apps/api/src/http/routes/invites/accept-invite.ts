@@ -58,7 +58,7 @@ export async function acceptInvite(app: FastifyInstance) {
           prisma.member.create({
             data: {
               userId,
-              organizationId: invite.id,
+              organizationId: invite.organizationId,
               role: invite.role,
             },
           }),
@@ -70,7 +70,7 @@ export async function acceptInvite(app: FastifyInstance) {
           }),
         ])
 
-        return reply.status(204).send()
+        return reply.status(204)
       },
     )
 }
