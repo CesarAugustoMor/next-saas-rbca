@@ -34,6 +34,9 @@ export async function getPendingInvite(app: FastifyInstance) {
                       avatarUrl: z.url().nullable(),
                     })
                     .nullable(),
+                  organization: z.object({
+                    name: z.string(),
+                  }),
                 }),
               ),
             }),

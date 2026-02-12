@@ -55,6 +55,7 @@ export function PendingInvites() {
         )}
 
         {data?.invites.map((invite) => {
+          console.log(invite);
           return (
             <div key={invite.id} className="space-y-2">
               <p className="text-sm leading-relaxed text-muted-foreground">
